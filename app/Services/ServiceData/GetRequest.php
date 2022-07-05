@@ -36,10 +36,10 @@ class GetRequest
     {
 
         $credential=$this->credential();
-        $data = 'subscriptionKey:'.$credential['subskey'];
+        $data = ['subscriptionKey' => $credential['subskey']];
         $header = ['api_key' => $credential['apikey'], 'x-signature' => $credential['sign']];
         event(new RequestEvent(json_encode($data)));
-        $response = Http::withHeaders($header)->post('http://68.183.188.18:3010/api/v0/info/post', [$data])->json();
+        $response = Http::withHeaders($header)->asForm()->post('http://68.183.188.18:3010/api/v0/info/post', $data)->json();
         event(new ResponseEvent($response));
         return $response;
 
