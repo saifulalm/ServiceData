@@ -35,4 +35,14 @@ class ServiceDataController extends Controller
 
 
     }
+
+
+    public function product(){
+
+
+
+        return $this->GetRequest->product();
+
+
+    }
 }

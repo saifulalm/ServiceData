@@ -18,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('v1/balance/Utn', [ServiceDataController::class, 'balance']);
+Route::get('v1/product/Utn', [ServiceDataController::class, 'product']);
