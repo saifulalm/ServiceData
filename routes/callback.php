@@ -18,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
+    Route::get('Utn', [ServiceDataController::class, 'callback']);
+
+
+
+
