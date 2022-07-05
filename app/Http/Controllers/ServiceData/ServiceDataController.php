@@ -26,4 +26,13 @@ class ServiceDataController extends Controller
 
 
     }
+
+    public function balance(){
+
+
+
+        return $this->GetRequest->balance();
+
+
+    }
 }
