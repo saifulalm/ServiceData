@@ -83,7 +83,7 @@ class GetRequest
             ->post();
 
         event(new ResponseEvent(json_encode($response)));
-        unset($response->subscriptionKey);
+        unset($response->data->subscriptionKey);
         return $response;
 
 
@@ -112,7 +112,7 @@ class GetRequest
                 ->withTimeout(60)
                 ->asJsonResponse()
                 ->get();
-            unset($response->data->subscriptionKey);
+            unset($response->subscriptionKey);
 
 
             if ($response->status === "success"){
