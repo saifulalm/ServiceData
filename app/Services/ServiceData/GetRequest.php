@@ -110,7 +110,7 @@ class GetRequest
             ->json();
         event(new ResponseEvent($response));
 
-        $this->DbActivity->activity_transaction($idtrx, $tujuan, $kode, $response['requestId'], $data, $response);
+        $this->DbActivity->activity_transaction($idtrx, $tujuan, $kode, $response['requestId'] ?? null, $data, $response);
         return array('idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'msg' => $response);
 
 
