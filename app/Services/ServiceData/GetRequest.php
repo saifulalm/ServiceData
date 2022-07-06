@@ -158,12 +158,12 @@ class GetRequest
 
             if ($request->status == 'sucess'){
 
-                $data=array('callback'=>true,'idtrx'=>$this->DbActivity->find_requestid($request->requestid)->idtrx,'msg'=>$request->status,'sn'=>self::sn(8));
+                $data=array('callback'=>true,'idtrx'=>$this->DbActivity->find_requestid($request->requestid)['idtrx'],'msg'=>$request->status,'sn'=>self::sn(8));
 
             }
             else{
 
-                $data=array('callback'=>true,'idtrx'=>$this->DbActivity->find_requestid($request->requestid)->idtrx,'msg'=>$request->status);
+                $data=array('callback'=>true,'idtrx'=>$this->DbActivity->find_requestid($request->requestid)['idtrx'],'msg'=>$request->status);
 
             }
 
