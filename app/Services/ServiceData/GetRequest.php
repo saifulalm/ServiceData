@@ -64,7 +64,7 @@ class GetRequest
             ->asJsonResponse()
             ->get();
         event(new ResponseEvent(json_encode($response)));
-        unset($response['subscriptionKey']);
+        unset($response->subscriptionKey);
         return $response;
     }
 
@@ -83,7 +83,7 @@ class GetRequest
             ->get();
 
         event(new ResponseEvent(json_encode($response)));
-        unset($response['subscriptionKey']);
+        unset($response->subscriptionKey);
         return $response;
 
 
