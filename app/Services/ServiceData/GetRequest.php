@@ -112,7 +112,7 @@ class GetRequest
                 ->withTimeout(60)
                 ->asJsonResponse()
                 ->get();
-            unset($response->subscriptionKey);
+            unset($response->data->subscriptionKey);
 
 
             if ($response->status === "success"){
