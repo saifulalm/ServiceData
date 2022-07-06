@@ -5,6 +5,7 @@ namespace App\Services\ServiceData;
 use App\Events\ServiceData\RequestEvent;
 use App\Events\ServiceData\ResponseEvent;
 use Illuminate\Support\Facades\Http;
+use Ixudra\Curl\Facades\Curl;
 
 class GetRequest
 {
@@ -82,7 +83,7 @@ class GetRequest
     {
         $msisdn = '62' . substr($tujuan, 1);
         $credential = $this->credential();
-        $header = ['api_key' => $credential['apikey'], 'x-signature' => $credential['sign']];
+        $header = ['api_key' => $credential['apikey'], 'x-signature' => $credential['sign'],  'Content-Type' => 'application/x-www-form-urlencoded'];
 
         if ($this->DbActivity->find($idtrx)){
 
@@ -111,11 +112,21 @@ class GetRequest
         }
 
 
-        $data = ['msisdn' => $msisdn, 'subscriptionKey' => $credential['subskey'], 'callbackUrl' => 'https://voucherdiskon.com/bnnbtswpwkfxtrdnwecr/api/v1/utn'];
+        $data = ['paket' => $kode, 'msisdn' => $msisdn, 'subscriptionKey' => $credential['subskey'], 'callbackUrl' => 'https://voucherdiskon.com/bnnbtswpwkfxtrdnwecr/api/v1/utn'];
         event(new RequestEvent(json_encode($data)));
-        $response = Http::withHeaders($header)
-            ->post('http://68.183.188.18:3010/api/v0/transaction/post', ['form_params' => $data])
-            ->json();
+
+     $response=   Curl::to('http://68.183.188.18:3010/api/v0/transaction/post')
+            ->withHeaders($header)
+            ->withdata($data)
+            ->asJsonRequest(TRUE)
+            ->withTimeout(60)
+            ->post();
+
+     dd($response);
+
+//        $response = Http::withHeaders($header)
+//            ->post('http://68.183.188.18:3010/api/v0/transaction/post', ['form_params' => $data])
+//            ->json();
         event(new ResponseEvent(json_encode($response)));
 
         $this->DbActivity->activity_transaction($idtrx, $tujuan, $kode, $response['requestId'] ?? null, $data, $response);
