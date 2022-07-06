@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ServiceData extends Model
 {
     protected $table = "message_transaction_servicedata";
-    protected $primaryKey = 'idtrx';
+    protected $primaryKey = 'requestid';
     protected $keyType = 'string';
     protected $fillable = ['idtrx','kode','tujuan','requestid','request','response'];
     protected $casts = [
