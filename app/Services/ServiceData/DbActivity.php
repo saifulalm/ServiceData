@@ -31,7 +31,7 @@ class DbActivity
     {
 
 
-        return ServiceData::where('requestid', $requestid)->first();
+        return ServiceData::where('requestid', $requestid)->get();
 
     }
 
