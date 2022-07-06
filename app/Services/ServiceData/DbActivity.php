@@ -26,4 +26,13 @@ class DbActivity
 
     }
 
+
+    public function find_requestid($requestid)
+    {
+
+
+        return ServiceData::where('requestid', $requestid);
+
+    }
+
 }
