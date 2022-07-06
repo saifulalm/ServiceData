@@ -169,6 +169,7 @@ class GetRequest
             Curl::to('http://131.101.55.119:2074/')
                 ->withdata($data)
                 ->withTimeout(60)
+                ->asJsonRequest()
                 ->post();
 
 
