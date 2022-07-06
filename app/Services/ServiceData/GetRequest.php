@@ -157,7 +157,7 @@ class GetRequest
         if ($this->DbActivity->find_requestid($request->requestid)){
 
 
-            if ($request->status == 'sucess'){
+            if ($request->status == 'success'){
 
                 $data=array('callback'=>true,'idtrx'=>$this->DbActivity->find_requestid($request->requestid)->idtrx,'msg'=>$request->status,'sn'=>self::sn(8));
 
