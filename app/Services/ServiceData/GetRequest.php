@@ -56,7 +56,7 @@ class GetRequest
         $data = ['subscriptionKey' => $credential['subskey']];
         $header = ['api_key' => $credential['apikey'], 'x-signature' => $credential['sign']];
         event(new RequestEvent(json_encode($data)));
-        $response = Http::withHeaders($header)->get('http://68.183.188.18:3010/api/v0/balance', $data)->json();
+        $response = Http::withHeaders($header)->get('http://68.183.188.18:3010/api/v0/balance', $data);
         event(new ResponseEvent($response));
         unset($response['subscriptionKey']);
         return $response;
@@ -95,8 +95,7 @@ class GetRequest
 
             $data = ['requestId' => $this->DbActivity->find($idtrx)->response['requestId'],'subscriptionKey' => $credential['subskey']];
             $response = Http::withHeaders($header)
-                ->post('http://68.183.188.18:3010/api/v0/status', ['form_params' => $data])
-                ->json();
+                ->post('http://68.183.188.18:3010/api/v0/status', ['form_params' => $data]);
 
             if ($response['sukses']){
 
