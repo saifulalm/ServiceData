@@ -151,6 +151,8 @@ class GetRequest
     {
         event(new ResponseEvent($request));
 
+        dd($this->DbActivity->find_requestid($request->requestid));
+
         if ($this->DbActivity->find_requestid($request->requestid)){
 
 
