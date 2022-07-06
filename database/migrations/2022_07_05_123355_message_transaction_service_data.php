@@ -13,7 +13,16 @@ class MessageTransactionServiceData extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('message_transaction_servicedata', function (Blueprint $table) {
+            $table->bigIncrements('no')->autoIncrement();
+            $table->string('idtrx')->primarykey()->index();
+            $table->string('kode', '200');
+            $table->string('tujuan', '20');
+            $table->string('trxid')->nullable();
+            $table->json('request');
+            $table->json('response')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +32,6 @@ class MessageTransactionServiceData extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('message_transaction_servicedata');
     }
 }

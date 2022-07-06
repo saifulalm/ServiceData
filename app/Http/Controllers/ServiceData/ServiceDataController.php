@@ -18,7 +18,8 @@ class ServiceDataController extends Controller
         $this->GetRequest = $GetRequest;
     }
 
-    public function index(){
+    public function index(): array
+    {
 
         $idtrx=$_GET['idtrx'];
         $kode=$_GET['kodeproduk'];

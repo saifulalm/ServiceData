@@ -7,5 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class ServiceData extends Model
 {
-    use HasFactory;
+    protected $table = "message_transaction_servicedata";
+    protected $primaryKey = 'idtrx';
+    protected $keyType = 'string';
+    protected $fillable = ['idtrx','kode','tujuan','requestid','request','response'];
+    protected $casts = [
+        'request'=>'array',
+        'response' => 'array',
+    ];
 }
