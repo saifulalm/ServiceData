@@ -58,6 +58,7 @@ class GetRequest
         $response = Http::withHeaders($header)->get('http://68.183.188.18:3010/api/v0/balance', $data)->json();
         event(new ResponseEvent($response));
         unset($response['subscriptionKey']);
+        dd($response);
         return $response;
     }
 
@@ -120,6 +121,12 @@ class GetRequest
     public function callback($request)
     {
 
+
+        if ($this->DbActivity->find($request->requestid)){
+
+
+
+        }
 
     }
 
