@@ -109,12 +109,8 @@ class GetRequest
             ->post('http://68.183.188.18:3010/api/v0/transaction/post', ['form_params' => $data])
             ->json();
         event(new ResponseEvent($response));
-        if (!isset($response['requestId']))
-        {
-            $response['requestId']=null;
 
-        }
-        $this->DbActivity->activity_transaction($idtrx, $tujuan, $kode, $response['requestId'], $data, $response);
+        $this->DbActivity->activity_transaction($idtrx, $tujuan, $kode, $response['requestId'] ?? null, $data, $response);
         return array('idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'msg' => $response);
 
 
