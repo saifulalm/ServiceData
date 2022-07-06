@@ -112,10 +112,10 @@ class GetRequest
                 ->withTimeout(60)
                 ->asJsonResponse()
                 ->get();
+            unset($response->subscriptionKey);
 
-            dd($response);
 
-            if ($response->success){
+            if ($response->status === "success"){
 
 
                 return array('advice'=>true,'idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'msg' => $response,'sn'=>self::sn(8));
