@@ -113,7 +113,7 @@ class GetRequest
                 ->asJsonResponse()
                 ->post();
 
-            if ($response['sukses']){
+            if ($response->success){
 
 
                 return array('advice'=>true,'idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'msg' => $response,'sn'=>self::sn(8));
@@ -136,7 +136,7 @@ class GetRequest
             ->post();
         event(new ResponseEvent(json_encode($response)));
         $this->DbActivity->activity_transaction($idtrx, $tujuan, $kode, $response['requestId'] ?? null, $data, $response);
-        if ($response['success']){
+        if ($response->success){
 
             return array('idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'status'=>'Proses','msg' => $response);
 
