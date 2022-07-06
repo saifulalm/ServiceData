@@ -59,7 +59,17 @@ class GetRequest
                     ->post('http://68.183.188.18:3010/api/v0/info/post',['form_params'=>$data])
                     ->json();
         event(new ResponseEvent($response));
-        return $response;
+        return array('idtrx'=>$idtrx,'kode'=>$kode,'tujuan'=>$tujuan,'msg'=>$response);
+
+
+    }
+
+
+    public function callback($request){
+
+
+
+
 
 
     }
