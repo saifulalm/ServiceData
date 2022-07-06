@@ -61,6 +61,7 @@ class GetRequest
             ->withHeaders($header)
             ->withdata($data)
             ->withTimeout(60)
+            ->asJsonResponse()
             ->get();
         event(new ResponseEvent(json_encode($response)));
         unset($response['subscriptionKey']);
@@ -78,6 +79,7 @@ class GetRequest
             ->withHeaders($header)
             ->withdata($data)
             ->withTimeout(60)
+            ->asJsonResponse()
             ->get();
 
         event(new ResponseEvent(json_encode($response)));
