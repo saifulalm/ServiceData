@@ -86,7 +86,7 @@ class GetRequest
 
         if ($this->DbActivity->find($idtrx)){
 
-            if (isset($this->DbActivity->find($idtrx)->response['requestId'])){
+            if (!isset($this->DbActivity->find($idtrx)->response['requestId'])){
 
                 return array('advice'=>true,'idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'msg' => 'Data Tidak Ditemukan Dalam Database, silahkan cek web report / info vendor');
 
