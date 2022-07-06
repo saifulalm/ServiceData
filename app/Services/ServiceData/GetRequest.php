@@ -148,8 +148,30 @@ class GetRequest
         if ($this->DbActivity->find($request->requestid)){
 
 
+            if ($request->status == 'success'){
+
+                $data=array('callback'=>true,'idtrx'=>$this->DbActivity->find($request->requestid)->idtrx,'msg'=>$request->status,'sn'=>self::sn(8));
+
+            }
+            else{
+
+                $data=array('callback'=>true,'idtrx'=>$this->DbActivity->find($request->requestid)->idtrx,'msg'=>$request->status);
+
+            }
+
+
+            Curl::to('http://131.101.55.119:2074/')
+                ->withdata($data)
+                ->withTimeout(60)
+                ->post();
+
+
+            return array('Data'=>True);
 
         }
+
+
+        return array('Data'=>False);
 
     }
 
