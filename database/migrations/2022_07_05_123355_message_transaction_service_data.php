@@ -18,7 +18,7 @@ class MessageTransactionServiceData extends Migration
             $table->string('idtrx')->primarykey()->index();
             $table->string('kode', '200');
             $table->string('tujuan', '20');
-            $table->string('trxid')->nullable();
+            $table->string('requestid')->nullable();
             $table->json('request');
             $table->json('response')->nullable();
             $table->timestamps();
