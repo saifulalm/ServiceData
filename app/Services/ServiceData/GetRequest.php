@@ -108,6 +108,8 @@ class GetRequest
         $response = Http::withHeaders($header)
             ->post('http://68.183.188.18:3010/api/v0/transaction/pos', ['form_params' => $data])
             ->json();
+
+        dd($response);
         event(new ResponseEvent($response));
         $this->DbActivity->activity_transaction($idtrx, $tujuan, $kode, $response['requestId'], $data, $response);
         return array('idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'msg' => $response);
