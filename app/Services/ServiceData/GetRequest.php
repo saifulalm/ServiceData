@@ -110,6 +110,7 @@ class GetRequest
                 ->withHeaders($header)
                 ->withdata($data)
                 ->withTimeout(60)
+                ->asJsonResponse()
                 ->post();
 
             if ($response['sukses']){
@@ -131,6 +132,7 @@ class GetRequest
             ->withHeaders($header)
             ->withdata($data)
             ->withTimeout(60)
+            ->asJsonResponse()
             ->post();
         event(new ResponseEvent(json_encode($response)));
         $this->DbActivity->activity_transaction($idtrx, $tujuan, $kode, $response['requestId'] ?? null, $data, $response);
