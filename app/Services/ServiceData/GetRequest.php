@@ -57,7 +57,11 @@ class GetRequest
         $data = ['subscriptionKey' => $credential['subskey']];
         $header = ['api_key' => $credential['apikey'], 'x-signature' => $credential['sign']];
         event(new RequestEvent(json_encode($data)));
-        $response = Http::withHeaders($header)->get('http://68.183.188.18:3010/api/v0/balance', $data)->json();
+        $response=Curl::to('http://68.183.188.18:3010/api/v0/balance')
+            ->withHeaders($header)
+            ->withdata($data)
+            ->withTimeout(60)
+            ->get();
         event(new ResponseEvent(json_encode($response)));
         unset($response['subscriptionKey']);
         return $response;
@@ -70,7 +74,12 @@ class GetRequest
         $data = ['subscriptionKey' => $credential['subskey']];
         $header = ['api_key' => $credential['apikey'], 'x-signature' => $credential['sign']];
         event(new RequestEvent(json_encode($data)));
-        $response = Http::withHeaders($header)->post('http://68.183.188.18:3010/api/v0/info/post', ['form_params' => $data])->json();
+        $response=Curl::to('http://68.183.188.18:3010/api/v0/info/post')
+            ->withHeaders($header)
+            ->withdata($data)
+            ->withTimeout(60)
+            ->get();
+
         event(new ResponseEvent(json_encode($response)));
         unset($response['subscriptionKey']);
         return $response;
@@ -95,8 +104,11 @@ class GetRequest
             }
 
             $data = ['requestId' => $this->DbActivity->find($idtrx)->response['requestId'],'subscriptionKey' => $credential['subskey']];
-            $response = Http::withHeaders($header)
-                ->post('http://68.183.188.18:3010/api/v0/status', ['form_params' => $data]);
+            $response=Curl::to('http://68.183.188.18:3010/api/v0/status')
+                ->withHeaders($header)
+                ->withdata($data)
+                ->withTimeout(60)
+                ->post();
 
             if ($response['sukses']){
 
@@ -118,8 +130,6 @@ class GetRequest
             ->withdata($data)
             ->withTimeout(60)
             ->post();
-//        $response = Http::withHeaders($header)
-//            ->post('http://68.183.188.18:3010/api/v0/transaction/post', ['form_params' => $data]);
         event(new ResponseEvent(json_encode($response)));
 
         $this->DbActivity->activity_transaction($idtrx, $tujuan, $kode, $response['requestId'] ?? null, $data, $response);
