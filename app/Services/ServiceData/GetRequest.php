@@ -86,6 +86,13 @@ class GetRequest
 
         if ($this->DbActivity->find($idtrx)){
 
+            if (isset($this->DbActivity->find($idtrx)->response['requestId'])){
+
+                return array('advice'=>true,'idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'msg' => 'Data Tidak Ditemukan Dalam Database, silahkan cek web report / info vendor');
+
+
+            }
+
             $data = ['requestId' => $this->DbActivity->find($idtrx)->response['requestId'],'subscriptionKey' => $credential['subskey']];
             $response = Http::withHeaders($header)
                 ->post('http://68.183.188.18:3010/api/v0/status', ['form_params' => $data])
