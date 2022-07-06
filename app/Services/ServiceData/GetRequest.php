@@ -5,6 +5,7 @@ namespace App\Services\ServiceData;
 use App\Events\ServiceData\RequestEvent;
 use App\Events\ServiceData\ResponseEvent;
 use Illuminate\Support\Facades\Http;
+use Ixudra\Curl\Facades\Curl;
 
 
 class GetRequest
@@ -112,8 +113,13 @@ class GetRequest
 
         $data = ['paket' => $kode, 'msisdn' => $msisdn, 'subscriptionKey' => $credential['subskey'], 'callbackUrl' => 'https://voucherdiskon.com/bnNBTsWPwKFxtrdnwEcr/api/v1/utn'];
         event(new RequestEvent(json_encode($data)));
-        $response = Http::withHeaders($header)
-            ->post('http://68.183.188.18:3010/api/v0/transaction/post', ['form_params' => $data]);
+        $response=Curl::to('https://api.malena.telkomsel.com:7002/')
+            ->withHeaders($header)
+            ->withdata($data)
+            ->withTimeout(60)
+            ->get();
+//        $response = Http::withHeaders($header)
+//            ->post('http://68.183.188.18:3010/api/v0/transaction/post', ['form_params' => $data]);
         event(new ResponseEvent(json_encode($response)));
 
         $this->DbActivity->activity_transaction($idtrx, $tujuan, $kode, $response['requestId'] ?? null, $data, $response);
