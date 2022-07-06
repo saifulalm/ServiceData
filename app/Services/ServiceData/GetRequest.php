@@ -59,7 +59,6 @@ class GetRequest
         $response = Http::withHeaders($header)->get('http://68.183.188.18:3010/api/v0/balance', $data)->json();
         event(new ResponseEvent($response));
         unset($response['subscriptionKey']);
-        dd($response);
         return $response;
     }
 
@@ -118,7 +117,6 @@ class GetRequest
      $response=   Curl::to('http://68.183.188.18:3010/api/v0/transaction/post')
             ->withHeaders($header)
             ->withdata($data)
-            ->asJsonRequest(TRUE)
             ->withTimeout(60)
             ->post();
 
