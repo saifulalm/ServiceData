@@ -117,7 +117,7 @@ class GetRequest
             ->withOptions(['debug' => fopen('php://stderr', 'w')])
             ->post('http://68.183.188.18:3010/api/v0/transaction/post', ['form_params' => $data])
             ->json();
-        event(new ResponseEvent($response));
+        event(new ResponseEvent(json_encode($response)));
 
         $this->DbActivity->activity_transaction($idtrx, $tujuan, $kode, $response['requestId'] ?? null, $data, $response);
         return array('idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'msg' => $response);
