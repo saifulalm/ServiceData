@@ -80,7 +80,7 @@ class GetRequest
             ->withdata($data)
             ->withTimeout(60)
             ->asJsonResponse()
-            ->get();
+            ->post();
 
         event(new ResponseEvent(json_encode($response)));
         unset($response->subscriptionKey);
