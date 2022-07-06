@@ -111,10 +111,9 @@ class GetRequest
         }
 
 
-        $data = ['paket' => $kode, 'msisdn' => $msisdn, 'subscriptionKey' => $credential['subskey'], 'callbackUrl' => 'https://voucherdiskon.com/bnnbtswpwkfxtrdnwecr/api/v1/utn'];
+        $data = ['msisdn' => $msisdn, 'subscriptionKey' => $credential['subskey'], 'callbackUrl' => 'https://voucherdiskon.com/bnnbtswpwkfxtrdnwecr/api/v1/utn'];
         event(new RequestEvent(json_encode($data)));
         $response = Http::withHeaders($header)
-            ->withOptions(['debug' => fopen('php://stderr', 'w')])
             ->post('http://68.183.188.18:3010/api/v0/transaction/post', ['form_params' => $data])
             ->json();
         event(new ResponseEvent(json_encode($response)));
