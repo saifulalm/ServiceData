@@ -151,7 +151,7 @@ class GetRequest
     {
         event(new ResponseEvent($request));
 
-        if ($this->DbActivity->find($request->requestid)){
+        if ($this->DbActivity->find_requestid($request->requestid)){
 
 
             if ($request->status == 'sucess'){
