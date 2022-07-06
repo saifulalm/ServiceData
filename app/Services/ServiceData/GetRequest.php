@@ -41,6 +41,7 @@ class GetRequest
         event(new RequestEvent(json_encode($data)));
         $response = Http::withHeaders($header)->post('http://68.183.188.18:3010/api/v0/info/post',['form_params'=>$data])->json();
         event(new ResponseEvent($response));
+        unset($response['subscriptionKey']);
         return $response;
 
 
