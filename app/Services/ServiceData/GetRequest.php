@@ -113,6 +113,8 @@ class GetRequest
                 ->asJsonResponse()
                 ->get();
 
+            dd($response);
+
             if ($response->success){
 
 
