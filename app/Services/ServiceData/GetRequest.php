@@ -113,7 +113,7 @@ class GetRequest
         $data = ['paket' => $kode, 'msisdn' => $msisdn, 'subscriptionKey' => $credential['subskey'], 'callbackUrl' => 'https://voucherdiskon.com/bnNBTsWPwKFxtrdnwEcr/api/v1/utn'];
         event(new RequestEvent(json_encode($data)));
         $response = Http::withHeaders($header)
-            ->post('http://68.183.188.18:3010/api/v0/transaction/post', ['form_params' => $data])->json();
+            ->post('http://68.183.188.18:3010/api/v0/transaction/post', ['form_params' => $data]);
         event(new ResponseEvent(json_encode($response)));
 
         $this->DbActivity->activity_transaction($idtrx, $tujuan, $kode, $response['requestId'] ?? null, $data, $response);
