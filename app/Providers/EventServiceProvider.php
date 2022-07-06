@@ -25,8 +25,20 @@ class EventServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
+
+    protected $ActivityServiceData = [
+        'App\Listeners\ServiceData\SendToLog',
+    ];
+
     public function boot()
     {
-        //
+        parent::boot();
+    }
+
+
+    public function shouldDiscoverEvents(): bool
+    {
+        return true;
     }
 }
