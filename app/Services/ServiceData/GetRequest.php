@@ -133,9 +133,8 @@ class GetRequest
             ->withTimeout(60)
             ->post();
         event(new ResponseEvent(json_encode($response)));
-dd($response);
         $this->DbActivity->activity_transaction($idtrx, $tujuan, $kode, $response['requestId'] ?? null, $data, $response);
-        if ($response->success){
+        if ($response['success']){
 
             return array('idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'status'=>'Proses','msg' => $response);
 
