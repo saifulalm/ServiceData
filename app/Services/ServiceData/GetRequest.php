@@ -111,7 +111,7 @@ class GetRequest
                 ->withdata($data)
                 ->withTimeout(60)
                 ->asJsonResponse()
-                ->post();
+                ->get();
 
             if ($response->success){
 
@@ -126,7 +126,7 @@ class GetRequest
         }
 
 
-        $data = ['paket' => $kode, 'msisdn' => $msisdn, 'subscriptionKey' => $credential['subskey'], 'callbackUrl' => 'https://voucherdiskon.com/bnNBTsWPwKFxtrdnwEcr/api/v1/utn'];
+        $data = ['paket' => $kode, 'msisdn' => $msisdn, 'subscriptionKey' => $credential['subskey'], 'callbackUrl' => 'https://voucherdiskon.com/bnnbtswpwkfxtrdnwecr/api/v1/utn'];
         event(new RequestEvent(json_encode($data)));
         $response=Curl::to('http://68.183.188.18:3010/api/v0/transaction/post')
             ->withHeaders($header)
