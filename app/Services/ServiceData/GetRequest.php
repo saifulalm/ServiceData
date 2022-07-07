@@ -148,8 +148,8 @@ class GetRequest
     public function callback($request): array
     {
 
-dd($this->DbActivity->find_requestid($request->input('requestid'))->idtrx);
-        event(new CallbackEvent(json_encode($request->input())));
+//dd($this->DbActivity->find_requestid($request->input('requestid'))->idtrx);
+        event(new CallbackEvent(file_get_contents('php://input')));
 
         if ($this->DbActivity->find_requestid($request->input('requestid'))) {
 
