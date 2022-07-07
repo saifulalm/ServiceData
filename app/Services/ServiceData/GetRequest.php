@@ -150,10 +150,9 @@ class GetRequest
     }
 
 
-    public function callback($request)
+    public function callback($request): array
     {
-        event(new CallbackEvent($request->input()));
-//dd($this->DbActivity->find_requestid($request->requestid)->idtrx);
+        event(new CallbackEvent($request->all()));
 
         if ($this->DbActivity->find_requestid($request->requestid)){
 
