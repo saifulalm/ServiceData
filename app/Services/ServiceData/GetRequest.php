@@ -2,6 +2,7 @@
 
 namespace App\Services\ServiceData;
 
+use App\Events\ServiceData\CallbackEvent;
 use App\Events\ServiceData\RequestEvent;
 use App\Events\ServiceData\ResponseEvent;
 use Illuminate\Support\Facades\Http;
@@ -151,7 +152,7 @@ class GetRequest
 
     public function callback($request): array
     {
-        event(new ResponseEvent($request));
+        event(new CallbackEvent($request));
 //dd($this->DbActivity->find_requestid($request->requestid)->idtrx);
 
         if ($this->DbActivity->find_requestid($request->requestid)){
