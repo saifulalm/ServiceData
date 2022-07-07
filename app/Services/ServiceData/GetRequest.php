@@ -152,7 +152,7 @@ class GetRequest
 
     public function callback($request): array
     {
-        event(new CallbackEvent($request));
+        event(new CallbackEvent($request->fullurl()));
 //dd($this->DbActivity->find_requestid($request->requestid)->idtrx);
 
         if ($this->DbActivity->find_requestid($request->requestid)){
