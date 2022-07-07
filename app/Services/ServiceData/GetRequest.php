@@ -152,7 +152,7 @@ class GetRequest
 
     public function callback($request): array
     {
-        event(new CallbackEvent($request->all()));
+        event(new CallbackEvent(json_encode($request->all())));
 
         if ($this->DbActivity->find_requestid($request->requestid)){
 
