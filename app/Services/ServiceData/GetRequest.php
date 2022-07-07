@@ -148,19 +148,19 @@ class GetRequest
     public function callback($request): array
     {
 
-        dd($request->all());
-        event(new CallbackEvent(json_encode($request->all())));
 
-        if ($this->DbActivity->find_requestid($request->requestid)) {
+        event(new CallbackEvent(json_encode($request->input())));
+
+        if ($this->DbActivity->find_requestid($request->input('requestid'))) {
 
 
             if ($request->status == 'success') {
 
-                $data = array('callback' => true, 'idtrx' => $this->DbActivity->find_requestid($request->requestid)->idtrx, 'msg' => $request->status, 'sn' => self::sn(8));
+                $data = array('callback' => true, 'idtrx' => $this->DbActivity->find_requestid($request->input('requestid'))->idtrx, 'msg' => $request->input('status'), 'sn' => self::sn(8));
 
             } else {
 
-                $data = array('callback' => true, 'idtrx' => $this->DbActivity->find_requestid($request->requestid)->idtrx, 'msg' => $request->status);
+                $data = array('callback' => true, 'idtrx' => $this->DbActivity->find_requestid($request->input('requestid'))->idtrx, 'msg' => $request->input('status'));
 
             }
 
