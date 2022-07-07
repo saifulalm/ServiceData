@@ -2,7 +2,6 @@
 
 namespace App\Services\ServiceData;
 
-use App\Events\ServiceData\CallbackEvent;
 use App\Events\ServiceData\RequestEvent;
 use App\Events\ServiceData\ResponseEvent;
 use Ixudra\Curl\Facades\Curl;
@@ -68,7 +67,7 @@ class GetRequest
 
     }
 
-    public function index($idtrx, $kode, $tujuan)
+    public function index($idtrx, $kode, $tujuan): array
     {
         $msisdn = '62' . substr($tujuan, 1);
         $credential = $this->credential();
@@ -96,7 +95,7 @@ class GetRequest
             if ($response->status === "success") {
 
 
-                return array('advice' => true, 'idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'msg' => $response, 'sn' => self::sn(8));
+                return array('advice' => true, 'idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'msg' => $response, 'sn' => self::sn());
 
             }
 
@@ -126,7 +125,7 @@ class GetRequest
 
     }
 
-    private static function sn($length)
+    private static function sn(): string
     {
         $dpn = '02140';
         $tgh = '0000';
@@ -136,8 +135,8 @@ class GetRequest
         for ($i = 0; $i < 2; $i++) {
             $acak2 = mt_rand(11, 99);
         }
-        $result = $dpn . $acak2 . $acak . $tgh . '';
-        for ($i = 0; $i < $length; $i++) {
+        $result = $dpn . $acak2 . $acak . $tgh;
+        for ($i = 0; $i < 8; $i++) {
             $result .= mt_rand(0, 9);
         }
 
@@ -148,19 +147,17 @@ class GetRequest
     public function callback($request): array
     {
 
-//dd($this->DbActivity->find_requestid($request->input('requestid'))->idtrx);
-
 
         if ($this->DbActivity->find_requestid($request->input('request_id'))) {
 
 
             if ($request->status == 'success') {
 
-                $data = array('callback' => true, 'idtrx' => $this->DbActivity->find_requestid($request->input('request_id'))->idtrx, 'msg' => $request->input('status'), 'sn' => self::sn(8));
+                $data = array('callback' => true, 'idtrx' => $this->DbActivity->find_requestid($request->input('request_id'))->idtrx, 'tujuan' => $this->DbActivity->find_requestid($request->input('request_id'))->tujuan, 'msg' => $request->input('status'), 'sn' => self::sn());
 
             } else {
 
-                $data = array('callback' => true, 'idtrx' => $this->DbActivity->find_requestid($request->input('request_id'))->idtrx, 'msg' => $request->input('status'));
+                $data = array('callback' => true, 'idtrx' => $this->DbActivity->find_requestid($request->input('request_id'))->idtrx,'tujuan' => $this->DbActivity->find_requestid($request->input('request_id'))->tujuan, 'msg' => $request->input('status'));
 
             }
 
