@@ -152,7 +152,7 @@ class GetRequest
     public function callback($request): array
     {
         event(new ResponseEvent($request));
-dd($this->DbActivity->find_requestid($request->requestid));
+//dd($this->DbActivity->find_requestid($request->requestid)->idtrx);
 
         if ($this->DbActivity->find_requestid($request->requestid)){
 
@@ -168,6 +168,7 @@ dd($this->DbActivity->find_requestid($request->requestid));
 
             }
 
+            dd($data);
 
             Curl::to('http://131.101.55.119:2074/')
                 ->withdata($data)
