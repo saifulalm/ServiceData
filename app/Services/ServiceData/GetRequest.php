@@ -168,7 +168,7 @@ class GetRequest
 
             }
 
-            dd($data);
+
 
             Curl::to('http://131.101.55.119:2074/')
                 ->withdata($data)
