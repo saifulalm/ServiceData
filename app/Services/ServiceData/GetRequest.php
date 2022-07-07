@@ -149,18 +149,18 @@ class GetRequest
     {
 
 //dd($this->DbActivity->find_requestid($request->input('requestid'))->idtrx);
-        event(new CallbackEvent(file_get_contents('php://input')));
 
-        if ($this->DbActivity->find_requestid($request->input('requestid'))) {
+
+        if ($this->DbActivity->find_requestid($request->input('request_id'))) {
 
 
             if ($request->status == 'success') {
 
-                $data = array('callback' => true, 'idtrx' => $this->DbActivity->find_requestid($request->input('requestid'))->idtrx, 'msg' => $request->input('status'), 'sn' => self::sn(8));
+                $data = array('callback' => true, 'idtrx' => $this->DbActivity->find_requestid($request->input('request_id'))->idtrx, 'msg' => $request->input('status'), 'sn' => self::sn(8));
 
             } else {
 
-                $data = array('callback' => true, 'idtrx' => $this->DbActivity->find_requestid($request->input('requestid'))->idtrx, 'msg' => $request->input('status'));
+                $data = array('callback' => true, 'idtrx' => $this->DbActivity->find_requestid($request->input('request_id'))->idtrx, 'msg' => $request->input('status'));
 
             }
 
