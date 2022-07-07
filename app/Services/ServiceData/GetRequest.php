@@ -150,12 +150,9 @@ class GetRequest
     }
 
 
-    public function callback($request): array
+    public function callback($request)
     {
         event(new CallbackEvent($request->input()));
-        event(new CallbackEvent($request->query()));
-        event(new CallbackEvent($request->schemeAndHttpHost()));
-        event(new CallbackEvent($request->httpHost()));
 //dd($this->DbActivity->find_requestid($request->requestid)->idtrx);
 
         if ($this->DbActivity->find_requestid($request->requestid)){
