@@ -27,13 +27,13 @@ class schedule_advice implements ShouldQueue
         $this->idtrx = $idtrx;
         $this->kode = $kode;
         $this->tujuan = $tujuan;
-        $this->header=$header;
+        $this->requestid=$requestid;
     }
 
-    public function handle($header, $idtrx, $kode, $tujuan, $requestid)
+    public function handle()
     {
 
-        $data = ['requestId' => $requestid, 'subscriptionKey' => $this->credential()['subskey']];
+        $data = ['requestId' => $this->requestid, 'subscriptionKey' => $this->credential()['subskey']];
         $response = Curl::to('http://68.183.188.18:3010/api/v0/status')
             ->withHeaders($this->header)
             ->withdata($data)
