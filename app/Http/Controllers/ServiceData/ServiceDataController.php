@@ -50,7 +50,8 @@ class ServiceDataController extends Controller
     }
 
 
-    public function callback(Request $request){
+    public function callback(Request $request): array
+    {
 
 
         if ($request->hasAny(['requestid','status'])){

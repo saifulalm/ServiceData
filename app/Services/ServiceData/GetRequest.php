@@ -4,6 +4,7 @@ namespace App\Services\ServiceData;
 
 use App\Events\ServiceData\RequestEvent;
 use App\Events\ServiceData\ResponseEvent;
+use App\Jobs\schedule_advice;
 use Ixudra\Curl\Facades\Curl;
 
 
@@ -77,7 +78,7 @@ class GetRequest
 
             if (!isset($this->DbActivity->find($idtrx)->response['requestId'])) {
 
-                return array('advice' => true, 'idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'msg' => 'Data Tidak Ditemukan Dalam Database, silahkan cek web report / info vendor');
+                return array('advice' => true, 'idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'msg' => 'Data Tidak Ditemukan Dalam Database');
 
 
             }
@@ -115,6 +116,8 @@ class GetRequest
             ->post();
         event(new ResponseEvent(json_encode($response)));
         $this->DbActivity->activity_transaction($idtrx, $tujuan, $kode, $response->requestId ?? null, $data, $response);
+
+        schedule_advice::dispatchAfterResponse($header, $idtrx, $kode, $tujuan)->delay(now()->addSecond(5));
         if ($response->success) {
 
             return array('idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'status' => 'Proses', 'msg' => $response);
