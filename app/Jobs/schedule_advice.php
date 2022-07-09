@@ -46,11 +46,11 @@ class schedule_advice implements ShouldQueue
         if ($response->status === "success") {
 
 
-            $send = array('advice' => true, 'idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'msg' => $response, 'sn' => self::sn());
+            $send = array('advice' => true, 'idtrx' => $this->idtrx, 'kode' => $this->kode, 'tujuan' => $this->tujuan, 'msg' => $response, 'sn' => self::sn());
 
         } else {
 
-            $send = array('advice' => true, 'idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'msg' => $response);
+            $send = array('advice' => true, 'idtrx' => $this->idtrx, 'kode' => $this->kode, 'tujuan' => $this->tujuan, 'msg' => $response);
         }
 
 
