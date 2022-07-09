@@ -15,17 +15,19 @@ class schedule_advice implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
 
-
+    private $header;
     private $idtrx;
     private $kode;
     private $tujuan;
+    private $requestid;
 
-    public function __construct($idtrx, $kode, $tujuan)
+    public function __construct($header,$idtrx, $kode, $tujuan,$requestid)
     {
-
+        $this->header = $header;
         $this->idtrx = $idtrx;
         $this->kode = $kode;
         $this->tujuan = $tujuan;
+        $this->header=$header;
     }
 
     public function handle($header, $idtrx, $kode, $tujuan, $requestid)
@@ -33,7 +35,7 @@ class schedule_advice implements ShouldQueue
 
         $data = ['requestId' => $requestid, 'subscriptionKey' => $this->credential()['subskey']];
         $response = Curl::to('http://68.183.188.18:3010/api/v0/status')
-            ->withHeaders($header)
+            ->withHeaders($this->header)
             ->withdata($data)
             ->withTimeout(60)
             ->asJsonResponse()
