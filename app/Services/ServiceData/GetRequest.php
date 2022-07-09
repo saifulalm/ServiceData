@@ -117,7 +117,7 @@ class GetRequest
         event(new ResponseEvent(json_encode($response)));
         $this->DbActivity->activity_transaction($idtrx, $tujuan, $kode, $response->requestId ?? null, $data, $response);
 
-        schedule_advice::dispatch($header, $idtrx, $kode, $tujuan, $response->requestId)->delay(now()->addSecond(30));
+        schedule_advice::dispatch($header, $idtrx, $kode, $tujuan, $response->requestId)->delay(now()->addSeconds(10));
         if ($response->success) {
 
             return array('idtrx' => $idtrx, 'kode' => $kode, 'tujuan' => $tujuan, 'status' => 'Proses', 'msg' => $response);
